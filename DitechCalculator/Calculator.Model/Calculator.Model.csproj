@@ -7,4 +7,14 @@
   <ItemGroup>
     <Compile Remove="Class1.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ApiModel\" />
+    <Folder Include="ApiModel\Request\" />
+    <Folder Include="ApiModel\Response\" />
+    <Folder Include="ApiModel\Request\v1\" />
+    <Folder Include="ApiModel\Response\v1\" />
+    <Folder Include="ApiModel\CanonicModel\" />
+    <Folder Include="ApiModel\CanonicModel\v1\" />
+    <Folder Include="Entities\" />
+  </ItemGroup>
 </Project>
