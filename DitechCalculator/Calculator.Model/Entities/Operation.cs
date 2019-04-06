@@ -27,5 +27,6 @@ namespace Calculator.Model.Entities {
         /// </summary>
         /// <value>The date.</value>
         public string Date { get; set; }
+        public string IdHeader { get; set; }
     }
 }

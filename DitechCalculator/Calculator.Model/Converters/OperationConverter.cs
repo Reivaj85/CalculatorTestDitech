@@ -40,7 +40,7 @@ namespace Calculator.Model.Converters {
         /// <param name="operation">Operation.</param>
         private static Operation ConvertResponse(Entities.Operation operation) {
             return new Operation() {
-                Id = operation.Id,
+                Id = operation.IdHeader,
                 TypeOperation = operation.OperationType,
                 Calculation = operation.Calculation,
                 Date = DateTime.Parse(operation.Date)

@@ -63,8 +63,8 @@ namespace Calculator.DALC.Repositories {
         /// <returns>The by identifier async.</returns>
         /// <param name="id">Identifier.</param>
         /// <param name="ct">Ct.</param>
-        public async Task<Operation> GetByIdAsync(int id, CancellationToken ct = default(CancellationToken)) {
-            return await _context.Operations.FirstOrDefaultAsync(o => o.Id == id,ct);
+        public async Task<Operation> GetByIdAsync(string id, CancellationToken ct = default(CancellationToken)) {
+            return await _context.Operations.FirstOrDefaultAsync(o => o.IdHeader == id,ct);
         }
     }
 }

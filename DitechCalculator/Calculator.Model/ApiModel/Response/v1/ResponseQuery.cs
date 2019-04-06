@@ -31,8 +31,8 @@ namespace Calculator.Model.ApiModel.Response.v1 {
         /// identificador de la operacion
         /// </summary>
         /// <value>The identifier.</value>
-        [DataMember(Name = "id")]
-        public int Id { get; set; }
+        //[DataMember(Name = "id")]
+        public string Id { get; set; }
         /// <summary>
         /// Tipo de operacion
         /// </summary>
