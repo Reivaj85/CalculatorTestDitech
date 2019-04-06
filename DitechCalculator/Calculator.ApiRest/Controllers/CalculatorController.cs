@@ -100,11 +100,28 @@ namespace Calculator.ApiRest.Controllers {
         }
 
         [HttpPost("div")]
-        public async Task<IActionResult> div([FromBody]RequestDiv requestDiv, CancellationToken ct = default(CancellationToken)) {
+        public async Task<IActionResult> Div([FromBody]RequestDiv requestDiv, CancellationToken ct = default(CancellationToken)) {
             try {
                 bool save = Request.Headers.ContainsKey("X-Evl-Tracking-Id");
                 var id = save ? Request.Headers["X-Evl-Tracking-Id"].ToString() : null;
                 var response = await _calculatorSupervisor.DivAsync(requestDiv, save, id, ct);
+                return Ok(response);
+            } catch (Exception ex) {
+                var response = new ResponseCanonic() {
+                    ErrorCode = Enum.GetName(typeof(HttpStatusCode), HttpStatusCode.InternalServerError),
+                    ErrorStatus = (int)HttpStatusCode.InternalServerError,
+                    ErrorMessage = ex.Message
+                };
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+        [HttpPost("sqrt")]
+        public async Task<IActionResult> Sqrt([FromBody]RequestSqrt requestSqrt, CancellationToken ct = default(CancellationToken)) {
+            try {
+                bool save = Request.Headers.ContainsKey("X-Evl-Tracking-Id");
+                var id = save ? Request.Headers["X-Evl-Tracking-Id"].ToString() : null;
+                var response = await _calculatorSupervisor.SqrtAsync(requestSqrt, save, id, ct);
                 return Ok(response);
             } catch (Exception ex) {
                 var response = new ResponseCanonic() {

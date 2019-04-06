@@ -11,6 +11,6 @@ namespace Calculator.BO.Interfaces {
         Task<ResponseSub> SubAsync(RequestSub requestSub, bool save, string id,CancellationToken ct = default(CancellationToken));
         Task<ResponseMult> MultAsync(RequestMult requestMult, bool save, string id,CancellationToken ct = default(CancellationToken));
         Task<ResponseDiv> DivAsync(RequestDiv requestDiv, bool save, string id,CancellationToken ct = default(CancellationToken));
-        Task<ResponseSqrt> SqrtAsync(RequestAdd requestSqrt, bool save, string id,CancellationToken ct = default(CancellationToken));
+        Task<ResponseSqrt> SqrtAsync(RequestSqrt requestSqrt, bool save, string id,CancellationToken ct = default(CancellationToken));
     }
 }

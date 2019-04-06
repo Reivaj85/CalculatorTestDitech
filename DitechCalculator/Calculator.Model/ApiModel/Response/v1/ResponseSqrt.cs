@@ -7,6 +7,6 @@
         /// Corresponde al resultado de la operacion de la raiz cuadrada.
         /// </summary>
         /// <value>The square.</value>
-        public int Square { get; set; }
+        public double Square { get; set; }
     }
 }

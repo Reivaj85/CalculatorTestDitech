@@ -77,8 +77,19 @@ namespace Calculator.BO.Supervisor {
             };
         }
 
-        public Task<ResponseSqrt> SqrtAsync(RequestAdd requestSqrt, bool save, string id, CancellationToken ct = default(CancellationToken)) {
-            throw new System.NotImplementedException();
+        public async Task<ResponseSqrt> SqrtAsync(RequestSqrt requestSqrt, bool save, string id, CancellationToken ct = default(CancellationToken)) {
+            var resSqrt = Math.Sqrt(requestSqrt.Number);
+            if (save) {
+                await _operationRepository.AddAsync(new Model.Entities.Operation() {
+                    IdHeader = id,
+                    OperationType = "Sqrt",
+                    Date = DateTime.Now.ToString(),
+                    Calculation = $"SQRT({requestSqrt.Number}) = {resSqrt}"
+                });
+            }
+            return new ResponseSqrt() {
+                Square = resSqrt
+            };
         }
 
         public async Task<ResponseSub> SubAsync(RequestSub requestSub, bool save, string id, CancellationToken ct = default(CancellationToken)) {
