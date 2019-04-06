@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Calculator.BO.Interfaces;
 using Calculator.Model.ApiModel.CanonicModel.v1;
 using Calculator.Model.ApiModel.Request.v1;
+using Calculator.Model.ApiModel.Response.v1;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,6 +20,7 @@ namespace Calculator.ApiRest.Controllers {
         }
 
         [HttpGet("journal/query")]
+        [Produces(typeof(ResponseQuery))]
         public async Task<IActionResult> GetAllOperations( CancellationToken ct = default(CancellationToken)) {
             try {
                 var response = await _calculatorSupervisor.GetAllOperationAsync(ct);
@@ -34,6 +36,7 @@ namespace Calculator.ApiRest.Controllers {
         }
 
         [HttpGet("journal/query/{id}")]
+        [Produces(typeof(ResponseQuery))]
         public async Task<IActionResult> GetOperationById(string id, CancellationToken ct = default(CancellationToken)) {
             try {
                 var response =  await _calculatorSupervisor.GetOperationByIdAsync(id, ct);
@@ -49,6 +52,7 @@ namespace Calculator.ApiRest.Controllers {
         }
 
         [HttpPost("add")]
+        [Produces(typeof(ResponseAdd))]
         public async Task<IActionResult> Add([FromBody]RequestAdd requestAdd, CancellationToken ct = default(CancellationToken)) {
             try {
                 bool save = Request.Headers.ContainsKey("X-Evl-Tracking-Id");
@@ -66,6 +70,7 @@ namespace Calculator.ApiRest.Controllers {
         }
 
         [HttpPost("sub")]
+        [Produces(typeof(ResponseSub))]
         public async Task<IActionResult> Sub([FromBody]RequestSub requestSub, CancellationToken ct = default(CancellationToken)) {
             try {
                 bool save = Request.Headers.ContainsKey("X-Evl-Tracking-Id");
@@ -83,6 +88,7 @@ namespace Calculator.ApiRest.Controllers {
         }
 
         [HttpPost("mult")]
+        [Produces(typeof(ResponseMult))]
         public async Task<IActionResult> Mult([FromBody]RequestMult requestMult, CancellationToken ct = default(CancellationToken)) {
             try {
                 bool save = Request.Headers.ContainsKey("X-Evl-Tracking-Id");
@@ -100,6 +106,7 @@ namespace Calculator.ApiRest.Controllers {
         }
 
         [HttpPost("div")]
+        [Produces(typeof(ResponseDiv))]
         public async Task<IActionResult> Div([FromBody]RequestDiv requestDiv, CancellationToken ct = default(CancellationToken)) {
             try {
                 bool save = Request.Headers.ContainsKey("X-Evl-Tracking-Id");
@@ -117,6 +124,7 @@ namespace Calculator.ApiRest.Controllers {
         }
 
         [HttpPost("sqrt")]
+        [Produces(typeof(ResponseSqrt))]
         public async Task<IActionResult> Sqrt([FromBody]RequestSqrt requestSqrt, CancellationToken ct = default(CancellationToken)) {
             try {
                 bool save = Request.Headers.ContainsKey("X-Evl-Tracking-Id");

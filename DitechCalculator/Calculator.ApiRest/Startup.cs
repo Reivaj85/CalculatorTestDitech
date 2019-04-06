@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Calculator.ApiRest {
     public class Startup {
@@ -21,6 +22,14 @@ namespace Calculator.ApiRest {
                 .ConfigureSupervisor()
                 .AddMiddleware()
                 .AddCorsConfiguration();
+
+            services.AddSwaggerGen(s => {
+                s.SwaggerDoc("v1", new Info {
+                    Title = "Calculator Ditech API",
+                    Description = "Calculator Ditech Test Api - Oscar Contreras",
+                    TermsOfService = "Oscar Contreras - Test Ditech"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +44,11 @@ namespace Calculator.ApiRest {
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(s => {
+                s.SwaggerEndpoint("/swagger/v1/swagger.json","v1 docs");
+            });
         }
     }
 }
