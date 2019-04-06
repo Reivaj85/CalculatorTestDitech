@@ -40,8 +40,22 @@ namespace Calculator.BO.Supervisor {
             throw new System.NotImplementedException();
         }
 
-        public Task<ResponseMult> MultAsync(RequestMult requestMult, bool save, string id, CancellationToken ct = default(CancellationToken)) {
-            throw new System.NotImplementedException();
+        public async Task<ResponseMult> MultAsync(RequestMult requestMult, bool save, string id, CancellationToken ct = default(CancellationToken)) {
+            var resMult = 1;
+            foreach(var num in requestMult.Factors) {
+                resMult *= num;
+            }
+            if (save) {
+                await _operationRepository.AddAsync(new Model.Entities.Operation() {
+                    IdHeader = id,
+                    OperationType = "Mult",
+                    Date = DateTime.Now.ToString(),
+                    Calculation = $"{string.Join(" * ", requestMult.Factors)} = {resMult}"
+                });
+            }
+            return new ResponseMult() {
+                Product = resMult
+            };
         }
 
         public Task<ResponseSqrt> SqrtAsync(RequestAdd requestSqrt, bool save, string id, CancellationToken ct = default(CancellationToken)) {

@@ -81,5 +81,22 @@ namespace Calculator.ApiRest.Controllers {
                 return StatusCode((int)HttpStatusCode.InternalServerError, response);
             }
         }
+
+        [HttpPost("mult")]
+        public async Task<IActionResult> Mult([FromBody]RequestMult requestMult, CancellationToken ct = default(CancellationToken)) {
+            try {
+                bool save = Request.Headers.ContainsKey("X-Evl-Tracking-Id");
+                var id = save ? Request.Headers["X-Evl-Tracking-Id"].ToString() : null;
+                var response = await _calculatorSupervisor.MultAsync(requestMult, save, id, ct);
+                return Ok(response);
+            } catch (Exception ex) {
+                var response = new ResponseCanonic() {
+                    ErrorCode = Enum.GetName(typeof(HttpStatusCode), HttpStatusCode.InternalServerError),
+                    ErrorStatus = (int)HttpStatusCode.InternalServerError,
+                    ErrorMessage = ex.Message
+                };
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+            }
+        }
     }
 }
