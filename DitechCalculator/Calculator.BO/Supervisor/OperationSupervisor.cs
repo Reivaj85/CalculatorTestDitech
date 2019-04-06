@@ -36,8 +36,27 @@ namespace Calculator.BO.Supervisor {
             };
         }
 
-        public Task<ResponseDiv> DivAsync(RequestDiv requestDiv, bool save, string id, CancellationToken ct = default(CancellationToken)) {
-            throw new System.NotImplementedException();
+        public async Task<ResponseDiv> DivAsync(RequestDiv requestDiv, bool save, string id, CancellationToken ct = default(CancellationToken)) {
+            var resDiv = Math.Abs(requestDiv.Dividend) / Math.Abs(requestDiv.Divisor);
+            var remDiv = Math.Abs(requestDiv.Dividend) % Math.Abs(requestDiv.Divisor);
+            if (save) {
+                await _operationRepository.AddAsync(new Model.Entities.Operation() {
+                    IdHeader = id,
+                    OperationType = "Div",
+                    Date = DateTime.Now.ToString(),
+                    Calculation = $"{Math.Abs(requestDiv.Dividend)} / ({ Math.Abs(requestDiv.Divisor)}) = {resDiv}"
+                });
+                await _operationRepository.AddAsync(new Model.Entities.Operation() {
+                    IdHeader = id,
+                    OperationType = "Div",
+                    Date = DateTime.Now.ToString(),
+                    Calculation = $"{Math.Abs(requestDiv.Dividend)} % ({ Math.Abs(requestDiv.Divisor)}) = {remDiv}"
+                });
+            }
+            return new ResponseDiv() {
+                Quotient = resDiv,
+                Remainder = remDiv
+            };
         }
 
         public async Task<ResponseMult> MultAsync(RequestMult requestMult, bool save, string id, CancellationToken ct = default(CancellationToken)) {
