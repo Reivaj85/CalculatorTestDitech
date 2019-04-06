@@ -16,5 +16,6 @@
     <Folder Include="ApiModel\CanonicModel\" />
     <Folder Include="ApiModel\CanonicModel\v1\" />
     <Folder Include="Entities\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
 </Project>

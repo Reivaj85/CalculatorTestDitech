@@ -10,4 +10,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Calculator.Model\Calculator.Model.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+    <Folder Include="Repositories\Interfaces\" />
+  </ItemGroup>
 </Project>
