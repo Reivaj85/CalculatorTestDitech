@@ -10,7 +10,7 @@ namespace Calculator.DALC.Repositories.Interfaces {
     /// </summary>
     public interface IOperationRepository : IDisposable {
         Task<Operation> AddAsync(Operation newOperation, CancellationToken ct = default(CancellationToken));
-        Task<Operation> GetByIdAsync(string id, CancellationToken ct = default(CancellationToken));
+        Task<List<Operation>> GetByIdAsync(string id, CancellationToken ct = default(CancellationToken));
         Task<List<Operation>> GetAllAsync(CancellationToken ct = default(CancellationToken));
     }
 }

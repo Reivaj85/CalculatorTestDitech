@@ -17,7 +17,7 @@ namespace Calculator.BO.Supervisor {
         }
 
         public async Task<ResponseQuery> GetOperationByIdAsync(string id, CancellationToken ct = default(CancellationToken)) {
-            var operation = OperationConverter.Convert(await _operationRepository.GetByIdAsync(id,ct));
+            var operation = OperationConverter.ConvertList(await _operationRepository.GetByIdAsync(id,ct));
             return operation;
         }
 
@@ -48,8 +48,19 @@ namespace Calculator.BO.Supervisor {
             throw new System.NotImplementedException();
         }
 
-        public Task<ResponseSub> SubAsync(RequestSub requestSub, bool save, string id, CancellationToken ct = default(CancellationToken)) {
-            throw new System.NotImplementedException();
+        public async Task<ResponseSub> SubAsync(RequestSub requestSub, bool save, string id, CancellationToken ct = default(CancellationToken)) {
+            var resSub = Math.Abs(requestSub.Minuend) - Math.Abs(requestSub.Subtrahend);
+            if (save) {
+                await _operationRepository.AddAsync(new Model.Entities.Operation() {
+                    IdHeader = id,
+                    OperationType = "Sub",
+                    Date = DateTime.Now.ToString(),
+                    Calculation = $"{requestSub.Minuend} - ({requestSub.Subtrahend}) = {resSub}"
+                });
+            }
+            return new ResponseSub() {
+                Difference = resSub
+            };
         }
     }
 }

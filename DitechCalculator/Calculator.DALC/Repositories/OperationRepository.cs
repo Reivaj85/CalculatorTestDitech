@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Calculator.DALC.Repositories.Interfaces;
@@ -63,8 +64,8 @@ namespace Calculator.DALC.Repositories {
         /// <returns>The by identifier async.</returns>
         /// <param name="id">Identifier.</param>
         /// <param name="ct">Ct.</param>
-        public async Task<Operation> GetByIdAsync(string id, CancellationToken ct = default(CancellationToken)) {
-            return await _context.Operations.FirstOrDefaultAsync(o => o.IdHeader == id,ct);
+        public async Task<List<Operation>> GetByIdAsync(string id, CancellationToken ct = default(CancellationToken)) {
+            return await _context.Operations.Where(o => o.IdHeader == id).ToListAsync(ct);
         }
     }
 }
